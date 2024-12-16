@@ -20,9 +20,9 @@ public:
 	{
 		m_rows = matrix.size();
 		m_cols = matrix.empty() ? 0 : matrix[0].size();
-		for (const auto &m_row : matrix)
+		for (const auto &row : matrix)
 		{
-			if (m_row.size() != m_cols)
+			if (row.size() != m_cols)
 			{
 				throw std::invalid_argument("All rows must have the same number of columns.");
 			}
@@ -39,5 +39,10 @@ public:
 			}
 			std::cout << std::endl;
 		}
+	}
+
+	const T &operator()(size_t i, size_t j) const
+	{
+		return m_matrix[i][j];
 	}
 };
