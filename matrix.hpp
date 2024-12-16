@@ -29,20 +29,20 @@ public:
 		}
 	}
 
-	void print() const
-	{
-		for (const auto &row : m_matrix)
-		{
-			for (const auto &elem : row)
-			{
-				std::cout << elem << " ";
-			}
-			std::cout << std::endl;
-		}
-	}
-
 	const T &operator()(size_t i, size_t j) const
 	{
 		return m_matrix[i][j];
+	}
+
+	friend std::ostream &operator<<(std::ostream &os, const Matrix &matrix)
+	{
+		for (const auto &row : matrix.m_matrix)
+		{
+			for (const auto &elem : row)
+			{
+				os << elem << " ";
+			}
+			os << "\n";
+		}
 	}
 };
