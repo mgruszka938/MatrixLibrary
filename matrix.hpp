@@ -39,6 +39,11 @@ public:
 		return m_cols;
 	}
 
+	T &operator()(size_t i, size_t j)
+	{
+		return m_matrix[i][j];
+	}
+
 	const T &operator()(size_t i, size_t j) const
 	{
 		return m_matrix[i][j];
@@ -53,11 +58,30 @@ public:
 
 		Matrix<T> result(m_rows, m_cols); // Result matrix
 
-		for (size_t i = 0; i < m_rows, i++)
+		for (size_t i = 0; i < m_rows; i++)
 		{
-			for (size_t j = 0; j < m_cols, j++)
+			for (size_t j = 0; j < m_cols; j++)
 			{
 				result(i, j) = m_matrix[i][j] + other.m_matrix[i][j]; // Addition
+			}
+		}
+		return result;
+	}
+
+	Matrix<T> operator-(const Matrix<T> &other) const
+	{
+		if (m_rows != other.m_rows || m_cols != other.m_cols) // Checks if both matrices are the same size
+		{
+			throw std::invalid_argument("Matrix dimensions must match");
+		}
+
+		Matrix<T> result(m_rows, m_cols); // Result matrix
+
+		for (size_t i = 0; i < m_rows; i++)
+		{
+			for (size_t j = 0; j < m_cols; j++)
+			{
+				result(i, j) = m_matrix[i][j] - other.m_matrix[i][j]; // Substraction
 			}
 		}
 		return result;
@@ -78,7 +102,7 @@ public:
 			{
 				for (size_t k = 0; k < m_cols; ++k)
 				{
-					result(i, j) += m_matrix[i][k] * other.m_matrix[k][j];
+					result(i, j) += (*this)(i, k) * other(k, j); // Multiplication
 				}
 			}
 		}
@@ -93,7 +117,8 @@ public:
 			{
 				os << elem << " ";
 			}
-			os << "\n";
+			os << std::endl;
 		}
+		return os;
 	}
 };
