@@ -62,7 +62,7 @@ public:
 		{
 			for (size_t j = 0; j < m_cols; j++)
 			{
-				result(i, j) = m_matrix[i][j] + other.m_matrix[i][j]; // Addition
+				result(i, j) = (*this)(i, j) + other(i, j); // Addition
 			}
 		}
 		return result;
@@ -81,7 +81,7 @@ public:
 		{
 			for (size_t j = 0; j < m_cols; j++)
 			{
-				result(i, j) = m_matrix[i][j] - other.m_matrix[i][j]; // Substraction
+				result(i, j) = (*this)(i, j) - other(i, j); // Substraction
 			}
 		}
 		return result;
