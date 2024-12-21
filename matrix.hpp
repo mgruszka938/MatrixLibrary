@@ -49,15 +49,15 @@ public:
 		return m_matrix[i][j];
 	}
 
-	Matrix<T> transpose(const Matrix<T> &other)
+	Matrix<T> transpose()
 	{
-		Matrix<T> result(other.getCols(), other.getRows());
+		Matrix<T> result(this->getCols(), this->getRows());
 
-		for (size_t i = 0; i < other.getRows(); i++)
+		for (size_t i = 0; i < this->getRows(); i++)
 		{
-			for (size_t j = 0; j < other.getCols(); j++)
+			for (size_t j = 0; j < this->getCols(); j++)
 			{
-				result(j, i) = other(i, j);
+				result(j, i) = (*this)(i, j);
 			}
 		}
 		return result;
