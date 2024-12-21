@@ -49,6 +49,20 @@ public:
 		return m_matrix[i][j];
 	}
 
+	Matrix<T> transpose(const Matrix<T> &other)
+	{
+		Matrix<T> result(other.getCols(), other.getRows());
+
+		for (size_t i = 0; i < other.getRows(); i++)
+		{
+			for (size_t j = 0; j < other.getCols(); j++)
+			{
+				result(j, i) = other(i, j);
+			}
+		}
+		return result;
+	}
+
 	Matrix<T> operator+(const Matrix<T> &other) const
 	{
 		if (m_rows != other.m_rows || m_cols != other.m_cols) // Checks if both matrices are the same size
