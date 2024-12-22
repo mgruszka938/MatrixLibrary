@@ -82,7 +82,7 @@ public:
 		return result;
 	}
 
-	Matrix<T> operator+=(const Matrix<T> &other) const
+	Matrix<T> &operator+=(const Matrix<T> &other)
 	{
 		if (m_rows != other.m_rows || m_cols != other.m_cols) // Checks if both matrices are the same size
 		{
@@ -113,7 +113,7 @@ public:
 		return result;
 	}
 
-	Matrix<T> operator-=(const Matrix<T> &other) const
+	Matrix<T> &operator-=(const Matrix<T> &other)
 	{
 		if (m_rows != other.m_rows || m_cols != other.m_cols) // Checks if both matrices are the same size
 		{
@@ -147,7 +147,7 @@ public:
 		return result;
 	}
 
-	Matrix<T> operator*=(const Matrix<T> &other) const
+	Matrix<T> &operator*=(const Matrix<T> &other)
 	{
 		if (m_cols != other.m_rows)
 		{
@@ -157,6 +157,36 @@ public:
 		*this = (*this) * other;
 
 		return *this;
+	}
+
+	Matrix<T> operator*(const T &scalar) const
+	{
+		Matrix<T> result(m_rows, m_cols);
+
+		for (size_t i = 0; i < m_rows; i++)
+		{
+			for (size_t j = 0; j < m_rows; j++)
+			{
+				result(i, j) = (*this)(i, j) * scalar;
+			}
+		}
+		return result;
+	}
+
+	Matrix<T> &operator*=(const T &scalar)
+	{
+		*this = (*this) * scalar;
+		return *this;
+	}
+
+	bool operator==(const Matrix<T> &other) const
+	{
+		return m_matrix == other.m_matrix;
+	}
+
+	bool operator!=(const Matrix<T> &other) const
+	{
+		return !(*this == other);
 	}
 
 	friend std::ostream &operator<<(std::ostream &os, const Matrix &matrix)
