@@ -82,6 +82,18 @@ public:
 		return result;
 	}
 
+	Matrix<T> operator+=(const Matrix<T> &other) const
+	{
+		if (m_rows != other.m_rows || m_cols != other.m_cols) // Checks if both matrices are the same size
+		{
+			throw std::invalid_argument("Matrix dimensions must match");
+		}
+
+		*this = (*this) + other;
+
+		return *this;
+	}
+
 	Matrix<T> operator-(const Matrix<T> &other) const
 	{
 		if (m_rows != other.m_rows || m_cols != other.m_cols) // Checks if both matrices are the same size
@@ -99,6 +111,18 @@ public:
 			}
 		}
 		return result;
+	}
+
+	Matrix<T> operator-=(const Matrix<T> &other) const
+	{
+		if (m_rows != other.m_rows || m_cols != other.m_cols) // Checks if both matrices are the same size
+		{
+			throw std::invalid_argument("Matrix dimensions must match");
+		}
+
+		*this = (*this) - other;
+
+		return *this;
 	}
 
 	Matrix<T> operator*(const Matrix<T> &other) const
@@ -121,6 +145,18 @@ public:
 			}
 		}
 		return result;
+	}
+
+	Matrix<T> operator*=(const Matrix<T> &other) const
+	{
+		if (m_cols != other.m_rows)
+		{
+			throw std::invalid_argument("Matrix dimensions are wrong");
+		}
+
+		*this = (*this) * other;
+
+		return *this;
 	}
 
 	friend std::ostream &operator<<(std::ostream &os, const Matrix &matrix)
