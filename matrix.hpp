@@ -24,7 +24,7 @@ public:
 		{
 			if (row.size() != m_cols)
 			{
-				throw std::invalid_argument("All rows must have the same number of columns.");
+				std::cout << "All rows must have the same number of columns." << std::endl;
 			}
 		}
 	}
@@ -67,7 +67,7 @@ public:
 	{
 		if (m_rows != other.m_rows || m_cols != other.m_cols) // Checks if both matrices are the same size
 		{
-			throw std::invalid_argument("Matrix dimensions must match");
+			std::cout << "Matrix dimensions must match" << std::endl;
 		}
 
 		Matrix<T> result(m_rows, m_cols); // Result matrix
@@ -86,7 +86,7 @@ public:
 	{
 		if (m_rows != other.m_rows || m_cols != other.m_cols) // Checks if both matrices are the same size
 		{
-			throw std::invalid_argument("Matrix dimensions must match");
+			std::cout << "Matrix dimensions must match" << std::endl;
 		}
 
 		*this = (*this) + other;
@@ -98,7 +98,7 @@ public:
 	{
 		if (m_rows != other.m_rows || m_cols != other.m_cols) // Checks if both matrices are the same size
 		{
-			throw std::invalid_argument("Matrix dimensions must match");
+			std::cout << "Matrix dimensions must match" << std::endl;
 		}
 
 		Matrix<T> result(m_rows, m_cols); // Result matrix
@@ -117,7 +117,7 @@ public:
 	{
 		if (m_rows != other.m_rows || m_cols != other.m_cols) // Checks if both matrices are the same size
 		{
-			throw std::invalid_argument("Matrix dimensions must match");
+			std::cout << "Matrix dimensions must match" << std::endl;
 		}
 
 		*this = (*this) - other;
@@ -129,7 +129,7 @@ public:
 	{
 		if (m_cols != other.m_rows)
 		{
-			throw std::invalid_argument("Matrix dimensions are wrong");
+			std::cout << "Matrix dimensions are wrong" << std::endl;
 		}
 
 		Matrix<T> result(m_rows, other.m_cols, 0); // Result matrix
@@ -151,7 +151,7 @@ public:
 	{
 		if (m_cols != other.m_rows)
 		{
-			throw std::invalid_argument("Matrix dimensions are wrong");
+			std::cout << "Matrix dimensions are wrong" << std::endl;
 		}
 
 		*this = (*this) * other;

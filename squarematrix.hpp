@@ -13,7 +13,7 @@ public:
     {
         if (this->getRows() != this->getCols())
         {
-            throw std::invalid_argument("Matrix must be square.");
+            std::cout << "Matrix must be square" << std::endl;
         }
     }
 };
