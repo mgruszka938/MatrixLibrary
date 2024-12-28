@@ -60,7 +60,17 @@ public:
 		}
 	}
 
-	void setRandomValues(int n, int m)
+	void setOnes()
+	{
+		this->setValues(1);
+	}
+
+	void setZeroes()
+	{
+		this->setValues(0);
+	}
+
+	void setRandomValues(T n, T m)
 	{
 		if (n > m)
 		{
