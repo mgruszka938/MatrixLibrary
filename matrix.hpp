@@ -49,6 +49,34 @@ public:
 		return m_matrix[i][j];
 	}
 
+	void setValues(T val)
+	{
+		for (size_t i = 0; i < m_rows; i++)
+		{
+			for (size_t j = 0; j < m_cols; j++)
+			{
+				(*this)(i, j) = val;
+			}
+		}
+	}
+
+	void setRandomValues(int n, int m)
+	{
+		if (n > m)
+		{
+			std::cout << "Min cannot be greater than Max";
+		}
+
+		srand((unsigned)time(NULL));
+		for (size_t i = 0; i < m_rows; i++)
+		{
+			for (size_t j = 0; j < m_cols; j++)
+			{
+				(*this)(i, j) = n + (rand() % m);
+			}
+		}
+	}
+
 	Matrix<T> transpose()
 	{
 		Matrix<T> result(this->getCols(), this->getRows());
