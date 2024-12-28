@@ -16,4 +16,15 @@ public:
             std::cout << "Matrix must be square" << std::endl;
         }
     }
+
+    static SquareMatrix<T> identity(size_t n)
+    {
+        SquareMatrix<T> result(n, 0);
+
+        for (size_t i = 0; i < n, i++)
+        {
+            result(i, i) = 1;
+        }
+        return result;
+    }
 };
