@@ -7,7 +7,7 @@ template <typename T>
 class SquareMatrix : public Matrix<T>
 {
 public:
-    SquareMatrix(size_t n, T initialValue = T()) : Matrix<T>(n, n, initialValue) {}
+    SquareMatrix(int n, T initialValue = T()) : Matrix<T>(n, n, initialValue) {}
 
     SquareMatrix(const std::vector<std::vector<T>> &matrix) : Matrix<T>(matrix)
     {
@@ -21,7 +21,7 @@ public:
     {
         SquareMatrix<T> result(n, 0);
 
-        for (size_t i = 0; i < n; i++)
+        for (int i = 0; i < n; i++)
         {
             result(i, i) = 1;
         }

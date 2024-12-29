@@ -8,13 +8,13 @@ class Matrix
 {
 private:
 	std::vector<std::vector<T>> m_matrix;
-	size_t m_rows;
-	size_t m_cols;
+	int m_rows;
+	int m_cols;
 
 public:
 	Matrix() : m_rows(0), m_cols(0) {}
 
-	Matrix(size_t rows, size_t cols, T initialValue = T()) : m_rows(rows), m_cols(cols), m_matrix(rows, std::vector<T>(cols, initialValue)) {}
+	Matrix(int rows, int cols, T initialValue = T()) : m_rows(rows), m_cols(cols), m_matrix(rows, std::vector<T>(cols, initialValue)) {}
 
 	Matrix(const std::vector<std::vector<T>> &matrix) : m_matrix(matrix)
 	{
@@ -29,31 +29,82 @@ public:
 		}
 	}
 
-	size_t getRows() const
+	int getRows() const
 	{
 		return m_rows;
 	}
 
-	size_t getCols() const
+	int getCols() const
 	{
 		return m_cols;
 	}
 
-	T &operator()(size_t i, size_t j)
+	std::vector<T> getRow(int i) const
+	{
+		if (i >= m_rows || i < 0)
+		{
+			std::cout << "Out of bounds" << std::endl;
+			return std::vector<T>();
+		}
+		return m_matrix[i];
+	}
+
+	std::vector<T> getCol(int j) const
+	{
+		if (j >= m_cols || j < 0)
+		{
+			std::cout << "Out of bounds" << std::endl;
+			return std::vector<T>();
+		}
+
+		std::vector<T> col(m_rows);
+
+		for (int i = 0; i < m_rows; i++)
+		{
+			column[i] = m_matrix[i][j];
+		}
+
+		return col;
+	}
+
+	void addRows(const std::vector<T> &row)
+	{
+		if (row.size() != m_cols)
+		{
+			std::cout << "New row must have the same number of columns" << std::endl;
+		}
+		m_matrix.push_back(row);
+		++m_rows;
+	}
+
+	void addCols(const std::vector<T> &col)
+	{
+		if (row.size() != m_rows)
+		{
+			std::cout << "New column must have the same number of rows" << std::endl;
+		}
+		for (int i = 0; i < m_rows; i++)
+		{
+			m_matrix[i].pushback(column[i]);
+		}
+		++m_cols;
+	}
+
+	T &operator()(int i, int j)
 	{
 		return m_matrix[i][j];
 	}
 
-	const T &operator()(size_t i, size_t j) const
+	const T &operator()(int i, int j) const
 	{
 		return m_matrix[i][j];
 	}
 
 	void setValues(T val)
 	{
-		for (size_t i = 0; i < m_rows; i++)
+		for (int i = 0; i < m_rows; i++)
 		{
-			for (size_t j = 0; j < m_cols; j++)
+			for (int j = 0; j < m_cols; j++)
 			{
 				(*this)(i, j) = val;
 			}
@@ -78,9 +129,9 @@ public:
 		}
 
 		srand((unsigned)time(NULL));
-		for (size_t i = 0; i < m_rows; i++)
+		for (int i = 0; i < m_rows; i++)
 		{
-			for (size_t j = 0; j < m_cols; j++)
+			for (int j = 0; j < m_cols; j++)
 			{
 				(*this)(i, j) = n + (rand() % m);
 			}
@@ -91,9 +142,9 @@ public:
 	{
 		Matrix<T> result(this->getCols(), this->getRows());
 
-		for (size_t i = 0; i < this->getRows(); i++)
+		for (int i = 0; i < this->getRows(); i++)
 		{
-			for (size_t j = 0; j < this->getCols(); j++)
+			for (int j = 0; j < this->getCols(); j++)
 			{
 				result(j, i) = (*this)(i, j);
 			}
@@ -110,9 +161,9 @@ public:
 
 		Matrix<T> result(m_rows, m_cols); // Result matrix
 
-		for (size_t i = 0; i < m_rows; i++)
+		for (int i = 0; i < m_rows; i++)
 		{
-			for (size_t j = 0; j < m_cols; j++)
+			for (int j = 0; j < m_cols; j++)
 			{
 				result(i, j) = (*this)(i, j) + other(i, j); // Addition
 			}
@@ -141,9 +192,9 @@ public:
 
 		Matrix<T> result(m_rows, m_cols); // Result matrix
 
-		for (size_t i = 0; i < m_rows; i++)
+		for (int i = 0; i < m_rows; i++)
 		{
-			for (size_t j = 0; j < m_cols; j++)
+			for (int j = 0; j < m_cols; j++)
 			{
 				result(i, j) = (*this)(i, j) - other(i, j); // Substraction
 			}
@@ -172,11 +223,11 @@ public:
 
 		Matrix<T> result(m_rows, other.m_cols, 0); // Result matrix
 
-		for (size_t i = 0; i < m_rows; ++i)
+		for (int i = 0; i < m_rows; ++i)
 		{
-			for (size_t j = 0; j < other.m_cols; ++j)
+			for (int j = 0; j < other.m_cols; ++j)
 			{
-				for (size_t k = 0; k < m_cols; ++k)
+				for (int k = 0; k < m_cols; ++k)
 				{
 					result(i, j) += (*this)(i, k) * other(k, j); // Multiplication
 				}
@@ -201,9 +252,9 @@ public:
 	{
 		Matrix<T> result(m_rows, m_cols);
 
-		for (size_t i = 0; i < m_rows; i++)
+		for (int i = 0; i < m_rows; i++)
 		{
-			for (size_t j = 0; j < m_rows; j++)
+			for (int j = 0; j < m_rows; j++)
 			{
 				result(i, j) = (*this)(i, j) * scalar;
 			}
