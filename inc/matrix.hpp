@@ -196,6 +196,7 @@ public:
 		if (m_rows != other.m_rows || m_cols != other.m_cols) // Checks if both matrices are the same size
 		{
 			std::cout << "Matrix dimensions must match" << std::endl;
+			return error_matrix(m_cols, m_rows, 0);
 		}
 
 		Matrix<T> result(m_rows, m_cols); // Result matrix
