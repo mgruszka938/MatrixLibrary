@@ -1,2 +1,3 @@
-#include "../src/matrix.hpp"
-#include "../src/squarematrix.hpp"
+#include "../inc/matrix.hpp"
+#include "../inc/squarematrix.hpp"
+#include <iostream>

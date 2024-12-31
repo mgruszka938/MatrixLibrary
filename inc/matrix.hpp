@@ -24,7 +24,7 @@ public:
 		{
 			if (row.size() != m_cols)
 			{
-				std::cout << "All rows must have the same number of columns." << std::endl;
+				throw std::runtime_error("All rows must have the same number of columns");
 			}
 		}
 	}
@@ -43,7 +43,7 @@ public:
 	{
 		if (i >= m_rows || i < 0)
 		{
-			std::cout << "Out of bounds" << std::endl;
+			throw std::out_of_range("Out of bounds");
 			return std::vector<T>();
 		}
 		return m_matrix[i];
@@ -53,7 +53,7 @@ public:
 	{
 		if (j >= m_cols || j < 0)
 		{
-			std::cout << "Out of bounds" << std::endl;
+			throw std::out_of_range("Out of bounds");
 			return std::vector<T>();
 		}
 
@@ -61,42 +61,81 @@ public:
 
 		for (int i = 0; i < m_rows; i++)
 		{
-			column[i] = m_matrix[i][j];
+			col[i] = m_matrix[i][j];
 		}
 
 		return col;
 	}
 
-	void addRows(const std::vector<T> &row)
+	void addRow(int i, const std::vector<T> &row)
 	{
 		if (row.size() != m_cols)
 		{
-			std::cout << "New row must have the same number of columns" << std::endl;
+			throw std::invalid_argument("New row must have the same number of columns");
 		}
-		m_matrix.push_back(row);
+		if (i < 0 || i > m_rows)
+		{
+			throw std::out_of_range("Row index out of bounds");
+		}
+		m_matrix.insert(m_matrix.begin() + i, row);
 		++m_rows;
 	}
 
-	void addCols(const std::vector<T> &col)
+	void removeRow(int i)
 	{
-		if (row.size() != m_rows)
+		if (i < 0 || i >= m_rows)
 		{
-			std::cout << "New column must have the same number of rows" << std::endl;
+			throw std::out_of_range("Row index out of bounds");
+		}
+		m_matrix.erase(m_matrix.begin() + i);
+		--m_rows;
+	}
+
+	void addCol(int j, const std::vector<T> &col)
+	{
+		if (col.size() != m_rows)
+		{
+			throw std::invalid_argument("New column must have the same number of rows");
+		}
+		if (j < 0 || j > m_cols)
+		{
+			throw std::out_of_range("Column index out of bounds");
 		}
 		for (int i = 0; i < m_rows; i++)
 		{
-			m_matrix[i].pushback(column[i]);
+			m_matrix[i].insert(m_matrix[i].begin() + j, col[i]);
 		}
 		++m_cols;
 	}
 
+	void removeCol(int j)
+	{
+		if (j < 0 || j >= m_cols)
+		{
+			throw std::out_of_range("Column index out of bounds");
+		}
+		for (int i = 0; i < m_rows; i++)
+		{
+			m_matrix[i].erase(m_matrix[i].begin() + j);
+		}
+		--m_cols;
+	}
+
 	T &operator()(int i, int j)
 	{
+		if (i >= m_rows || j >= m_cols || i < 0 || j < 0)
+		{
+			throw std::out_of_range("Matrix indices out of bounds");
+		}
 		return m_matrix[i][j];
 	}
 
 	const T &operator()(int i, int j) const
 	{
+		if (i >= m_rows || j >= m_cols || i < 0 || j < 0)
+		{
+			throw std::out_of_range("Matrix indices out of bounds");
+		}
 		return m_matrix[i][j];
 	}
 
@@ -125,7 +164,7 @@ public:
 	{
 		if (n > m)
 		{
-			std::cout << "Min cannot be greater than Max";
+			throw std::invalid_argument("Min cannot be greater than Max");
 		}
 
 		srand((unsigned)time(NULL));
