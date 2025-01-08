@@ -6,6 +6,12 @@
 template <typename T>
 class SquareMatrix : public Matrix<T>
 {
+private:
+    void addRow(int, const std::vector<T> &) override {}
+    void removeRow(int) override {}
+    void addCol(int, const std::vector<T> &) override {}
+    void removeCol(int) override {}
+
 public:
     SquareMatrix(int n, T initialValue = T()) : Matrix<T>(n, n, initialValue) {}
 
