@@ -462,7 +462,7 @@ namespace mg
 
 			for (int i = 0; i < m_rows; i++)
 			{
-				for (int j = 0; j < m_rows; j++)
+				for (int j = 0; j < m_cols; j++)
 				{
 					result(i, j) = (*this)(i, j) * scalar;
 				}
