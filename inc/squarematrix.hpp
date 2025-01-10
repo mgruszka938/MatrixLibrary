@@ -66,43 +66,4 @@ public:
         }
         return det;
     }
-
-    SquareMatrix<T> inverse() const
-    {
-        T det = this->determinant();
-
-        if (det == 0)
-        {
-            throw std::runtime_error("Matrix cannot be inverted");
-        }
-
-        int n = this->getRows();
-        SquareMatrix<T> subMatrix0(n);
-        SquareMatrix<T> subMatrix1(n - 1);
-
-        for (int i = 0; i < n; i++)
-        {
-            for (int j = 0; j < n; j++)
-            {
-                int subRow = 0;
-                for (int row = 0; row < n; row++)
-                {
-                    if (row == i)
-                        continue;
-                    int subCol = 0;
-                    for (int col = 0; col < n; col++)
-                    {
-                        if (col == j)
-                            continue;
-                        subMatrix1(subRow, subCol) = (*this)(row, col);
-                        subCol++;
-                    }
-                    subRow++;
-                }
-                T sign = ((i + j) % 2 == 0) ? 1 : -1;
-                subMatrix0(j, i) = sign * subMatrix.determinant();
-            }
-        }
-        return subMatrix0 * (1 / det);
-    }
 };
